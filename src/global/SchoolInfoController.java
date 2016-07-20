@@ -1,4 +1,4 @@
-package member;
+package global;
 
 import java.io.IOException;
 
@@ -10,10 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class MemberController
+ * Servlet implementation class SchoolInfoController
  */
-@WebServlet("/member/main.do")
-public class MemberController extends HttpServlet {
+@WebServlet("/global/school_info.do")
+public class SchoolInfoController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
