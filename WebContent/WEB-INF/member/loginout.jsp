@@ -11,8 +11,9 @@
 <body>
 	<div class="box">
 <% 		MemberService service = MemberServiceImpl.getInstance();
-		MemberBean member = service.show();
+		MemberBean member = new MemberBean();
 %>	
+<%--	service.show(); --%>
 		<form action="${context}/member/result/logout.jsp" method="post">
 			<input type="hidden" name="id" value="<%=member.getId() %>" />
 			<input type="hidden" name="pw" value="<%=member.getPw() %>" />

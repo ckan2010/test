@@ -14,8 +14,9 @@
 </head>
 <body>
 <% 		MemberService service = MemberServiceImpl.getInstance();
-		MemberBean member = service.show();
+		MemberBean member = new MemberBean();
 %>
+<%--service.show(); --%>
 	<h1>탈퇴</h1>
 		<form action="${context}/member/result/delete.jsp" method="post">
 		    <input type="hidden" name="id" value="<%=member.getId() %>" />
