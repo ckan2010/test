@@ -12,7 +12,16 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class AccountController
  */
-@WebServlet("/account/main.do")
+@WebServlet({"/account/main.do",
+	        "/account/regist.do", 
+         	"/account/deposit.do", 
+         	"/account/withdraw.do", 
+         	"/account/update.do", 
+         	"/account/delete.do", 
+         	"/account/list.do", 
+         	"/account/search.do", 
+         	"/account/count.do", 
+		    })
 public class AccountController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

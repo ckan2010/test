@@ -8,14 +8,14 @@
 	<h1>계좌관리</h1>
 	<div style="width: 300px;margin: 0 auto;text-align: left;">
  	<ol>
- 		<li><a href="service/regist.jsp">개설</a></li>
- 		<li><a href="service/deposit.jsp">입금</a></li>
- 		<li><a href="service/withdraw.jsp">출금</a></li>
- 		<li><a href="service/update.jsp">수정</a></li>
- 		<li><a href="service/delete.jsp">해지</a></li>
- 		<li><a href="service/list.jsp">목록</a></li>
- 		<li><a href="service/search.jsp">조회</a></li>
- 		<li><a href="service/count.jsp">통장수</a></li>
+ 		<li><a href="${context}/account/regist.do">개설</a></li>
+ 		<li><a href="${context}/account/deposit.do">입금</a></li>
+ 		<li><a href="${context}/account/withdraw.do">출금</a></li>
+ 		<li><a href="${context}/account/update.do">수정</a></li>
+ 		<li><a href="${context}/account/delete.do">해지</a></li>
+ 		<li><a href="${context}/account/list.do">목록</a></li>
+ 		<li><a href="${context}/account/search.do">조회</a></li>
+ 		<li><a href="${context}/account/count.do">통장수</a></li>
  	</ol>
  	</div>
 	</div>
