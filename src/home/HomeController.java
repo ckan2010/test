@@ -15,7 +15,7 @@ import jdk.nashorn.internal.ir.RuntimeNode.Request;
 /**
  * Servlet implementation class HomeController
  */
-@WebServlet({"/home.do","/top.do","/header.do"})
+@WebServlet({"/home.do"})
 public class HomeController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
