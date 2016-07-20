@@ -18,9 +18,9 @@ public class GlobalController extends HttpServlet {
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String servletPath = request.getServletPath();
-		String pkg =  servletPath.split("/")[1];
-		String path = servletPath.split("/")[2];
-		String view = path.substring(0, path.indexOf("."));
+		String[] arr = servletPath.split("/");
+		String pkg =  arr[1];
+		String view = arr[2].substring(0, arr[2].indexOf("."));
 		RequestDispatcher dis = request.getRequestDispatcher("/WEB-INF/"+pkg+"/"+view+".jsp");
 		dis.forward(request, response);
 	}
