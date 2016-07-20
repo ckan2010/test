@@ -25,7 +25,7 @@
   <jsp-config>
     <jsp-property-group>
       <url-pattern>/*</url-pattern>
-      <include-prelude>/WEB-INF/global/variable3.jspf</include-prelude>
+      <include-prelude>/WEB-INF/global/variable.jspf</include-prelude>
     </jsp-property-group>
   </jsp-config>
   <error-page>
