@@ -7,7 +7,7 @@
 </style>	
 	<div class="box">
 	<h1>회원관리 로그인</h1>
-	<form action="${context}/member/result/login.jsp" method="post">
+	<form action="${context}/member/login.do" method="post">
 		<span class=meta>ID</span><input type="text" name="id" /><br />
 		<span class=meta>비밀번호</span><input type="password" name="pw" /><br />
 		<br /><br /><br />

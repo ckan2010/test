@@ -1,22 +1,22 @@
 @CHARSET "UTF-8";
-div.box{padding-top:50px;margin: 0 auto;width = 600px;text-align:center;}
+div.box{margin: 0 auto;width = 600px;text-align:center;}
 #header {
     background-color:black;
     color:white;
     text-align:center;
-    padding:5px;
+    padding:2px;
 }
 #section {
     width:350px;
     float:left;
-    padding:10px;
+    padding:5px;
 }
 #footer {
     background-color:black;
     color:white;
     clear:both;
     text-align:center;
-    padding:5px;
+    padding:1px;
 }
 #nav ul{
     line-style-type: none;
@@ -27,25 +27,25 @@ div.box{padding-top:50px;margin: 0 auto;width = 600px;text-align:center;}
 }
 #nav li {
     float: left;
-    border-right: 1px solid #bbb;
+    border-right: 0 solid #bbb;
     display: inline;
 }
 #nav li a {
     display: block;
     color: white;
     text-align: center;
-    padding: 14px 16px;
+    padding: 5px 10px;
     text-decoration: none;
 }
 #nav li a:hover:not(.active) {
     background-color: green;
 }
 #nav .active{
-	background-color: black;
+	background-color: #333;
 }
 .bottom{
 	position: absolute;
 	bottom: 0;
 	width: 100%;
-	height: 50px;
+	height: 30px;
 }
