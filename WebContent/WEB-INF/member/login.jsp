@@ -7,10 +7,11 @@
 </style>	
 	<div class="box">
 	<h1>회원관리 로그인</h1>
-	<form action="${context}/member/login.do" method="post">
+	<form action="${context}/member/intro.do" method="get">
 		<span class=meta>ID</span><input type="text" name="id" /><br />
 		<span class=meta>비밀번호</span><input type="password" name="pw" /><br />
 		<br /><br /><br />
+		<input type="hidden" name="cmd" value="login" />
 		<input type="submit" value="로그인" />
 		<input type="reset" onclick=" location='${context}/index.jsp'" value="취소" />
 	</form>
