@@ -2,13 +2,9 @@
 <%@ page import="member.MemberBean" %>     
 <%@ page import="member.MemberService" %>     
 <%@ page import="member.MemberServiceImpl" %>
-<!doctype html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8" />
-	<title>로그아웃</title>
-</head>
-<body>
+<jsp:include page="../global/top.jsp" />
+<jsp:include page="../global/header.jsp" />
+<jsp:include page="../global/navi.jsp" />
 	<div class="box">
 <% 		MemberService service = MemberServiceImpl.getInstance();
 		MemberBean member = new MemberBean();
@@ -20,5 +16,5 @@
 			<input type="submit" value="로그아웃" />
 		</form>
 	</div>
-</body>
-</html>
+<jsp:include page="../global/footer.jsp"/>
+<jsp:include page="../global/end.jsp"/>
