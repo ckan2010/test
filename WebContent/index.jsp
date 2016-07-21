@@ -1,11 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<jsp:include page="WEB-INF/global/top.jsp" />
-<jsp:include page="WEB-INF/global/header.jsp" /> 
-<div class="box">
-	 <h2>서비스를 이용하시려면 회원가입을 하셔야 합니다.</h2>
-	  	<a href="${context}/member/regist.do">회원가입 하러 가기</a><br />
-		<a href="${context}/member/login.do">로그인 하러 가기</a><br />
-		<a href="${context}/global/main.do">[임시]글로벌 메인</a>
-</div>
-<jsp:include page="WEB-INF/global/footer.jsp" />
-<jsp:include page="WEB-INF/global/end.jsp" /> 
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title>Document</title>
+</head>
+<body>
+		<%-- <form action="${context}/home.do">
+		<input type="submit" value="홈으로" />
+	</form>--%>
+	<a href="${context}/intro.do?page=home">홈으로</a> 
+</body>
+</html>

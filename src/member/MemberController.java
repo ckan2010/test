@@ -9,54 +9,40 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class MemberController
- */
-@WebServlet({"/member/main.do","/member/regist.do","/member/detail.do",
-	"/member/update.do","/member/delete.do","/member/login.do",
-	"/member/loginout.do","/member/list.do","/member/find_by.do","/member/count.do"
-	})
+import global.Seperator;
+
+@WebServlet({"/member/main.do",
+			"/member/detail.do",
+			"/member/regist.do",
+			"/member/update.do",
+			"/member/delete.do",
+			"/member/login.do",
+			"/member/logout.do",
+			"/member/find_by.do",
+			"/member/count.do"
+			})
 public class MemberController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private String directory="",view="";
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("GET방식으로 접근함");
-		this.init(request);
-		try {
-			this.dispatch(request, response);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("POST 방식으로 접근함");
+	
+	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("컨트롤러 진입...");
+		Seperator.init(request,response);
+		
 		MemberService service = MemberServiceImpl.getInstance();
-		String name = service.login(this.init(request));
-		request.setAttribute("result", name);
-		if (!name.equals("")) {
-			this.directory = "member";
-			this.view = "main";
-		} 
-		try {
-			this.dispatch(request, response);
-		} catch (Exception e) {
-			e.printStackTrace();
+		switch (Seperator.command.getAction()) {
+		case "main":
+			this.dispatch(request, response, Seperator.command.getDirectory()+"/"+Seperator.command.getAction());
+			break;
+		case "login":
+			break;
+		case "regist":break;
+		default:
+			break;
 		}
 	}
-	public MemberBean init(HttpServletRequest request) throws ServletException {
-		String servletPath = request.getServletPath();
-		String[] arr = servletPath.split("/");
-		this.directory =  arr[1];
-		this.view = arr[2].substring(0, arr[2].indexOf("."));
-		String id = request.getParameter("id");
-		String pw = request.getParameter("pw");
-		MemberBean m = new MemberBean();
-		m.setId(id);
-		m.setPw(pw);
-		return m;
-	}
-	public void dispatch(HttpServletRequest request, HttpServletResponse response) throws Exception{
-		RequestDispatcher dis = request.getRequestDispatcher("/WEB-INF/"+directory+"/"+view+".jsp");
+	public void dispatch(HttpServletRequest request, HttpServletResponse response,String page) throws Exception{
+		RequestDispatcher dis = request.getRequestDispatcher("/WEB-INF/"+page+".jsp");
 		dis.forward(request, response);
 	}
+
 }
