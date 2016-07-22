@@ -1,5 +1,7 @@
 package member;
 
+import java.io.IOException;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -71,11 +73,19 @@ public class MemberController extends HttpServlet {
 			Separator.command.setView();
 			request.setAttribute("member", member);
 		case "delete":
+			member = service.show();
+			request.setAttribute("member", member);
+			break;
+		case "delete1":
+			member = service.show();
+			System.out.println("member ID : "+member.getId());
+			System.out.println("member pw : "+member.getPw());
 			String id = member.getId();
 			String pw = member.getPw();
 			String confpw = request.getParameter("confpw");
 			System.out.println("ID : "+id);
 			System.out.println("pw : "+pw);
+			System.out.println("confpw : "+confpw);
 			if(pw.equals(confpw)){
 				member.setId(id);
 				member.setPw(confpw);	
