@@ -8,14 +8,15 @@
 	div.joinDiv{border: 1px dotted gray;width: 80%;margin: 10px 50px 10px 50px}
 </style>	
 	<div class = "box">
-	<h1>회원가입</h1>
-	<form action="${context}/member/regist.do" method="post">
+	<h2>회원가입</h2>
+	<form action="${context}/member.do" method="post">
 		<span class="meta">이름</span><input type="text" name="name" /><br />
 		<span class="meta">ID</span><input type="text" name="id" /><br />
 		<span class="meta">비밀번호</span><input type="password" name="pw" /><br />
 		<span class="meta">SSN</span><input type="text" name="ssn_id"/><br />
 		<span class="meta">이메일</span><input type="text" name="email"/><br />
-		<br /><br /><br />
+		<br /><br />${name}
+		<input type="hidden" name="action" value="regist" />
 		<input type="submit" value="회원가입"/>
 		<input type="reset" onclick=" location='${context}/index.jsp'" value="취소" />
 	</form>
