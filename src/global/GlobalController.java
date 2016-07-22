@@ -12,25 +12,11 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class GlobalController
  */
-@WebServlet("/global/main.do")
+@WebServlet("/global.do")
 public class GlobalController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String servletPath = request.getServletPath();
-		String[] arr = servletPath.split("/");
-		String pkg =  arr[1];
-		String view = arr[2].substring(0, arr[2].indexOf("."));
-		RequestDispatcher dis = request.getRequestDispatcher("/WEB-INF/"+pkg+"/"+view+".jsp");
-		dis.forward(request, response);
+	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("==글로벌 컨트롤러 진입 ===");
+		DispatcherServlet.send(request, response, Separator.init(request, response));
 	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
-
 }
