@@ -76,6 +76,8 @@ public class MemberController extends HttpServlet {
 			String id = member.getId();
 			String pw = member.getPw();
 			String confpw = request.getParameter("confpw");
+			System.out.println("ID : "+id);
+			System.out.println("pw : "+pw);
 			if(pw.equals(confpw)){
 				member.setId(id);
 				member.setPw(confpw);	
