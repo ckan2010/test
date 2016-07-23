@@ -12,7 +12,6 @@
 		.bg_color{background-color: yellow}
 </style>    
 <div class="box">
-        <input type="hidden" name="action" value="detail" />
 		<h2>내정보보기</h2>
 		<table id="member_detail">
 		<tr>

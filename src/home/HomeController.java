@@ -12,10 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import global.Command;
 import global.DispatcherServlet;
 import global.Separator;
-
-/**
- * Servlet implementation class HomeController
- */
 @WebServlet({"/home.do"})
 public class HomeController extends HttpServlet {
 	private static final long serialVersionUID = 1L;

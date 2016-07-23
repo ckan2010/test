@@ -15,7 +15,7 @@
 		<span class="meta">비밀번호</span><input type="password" name="pw" /><br />
 		<span class="meta">SSN</span><input type="text" name="ssn_id"/><br />
 		<span class="meta">이메일</span><input type="text" name="email"/><br />
-		<br /><br />${name}
+		<br /><br />
 		<input type="hidden" name="action" value="regist" />
 		<input type="submit" value="회원가입"/>
 		<input type="reset" onclick=" location='${context}/index.jsp'" value="취소" />

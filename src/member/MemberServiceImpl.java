@@ -9,7 +9,7 @@ import account.AccountServiceImpl;
 public class MemberServiceImpl implements MemberService{
 	MemberDAO dao = MemberDAO.getInstance(); // 싱글톤 패턴
 	AccountService accService = AccountServiceImpl.getInstance();
-	MemberBean session;
+	public static MemberBean session;
 	MemberBean s;
 	private static MemberServiceImpl instance = new MemberServiceImpl();
 	public static MemberServiceImpl getInstance() {
@@ -32,8 +32,8 @@ public class MemberServiceImpl implements MemberService{
 	}
 	@Override
 	public void update(MemberBean stu) {
-		int cnt = 0;
 		if (dao.update(stu) !=0 ) {
+			System.out.println("update 건수 : "+dao.update(stu));
 			session = this.findById(stu.getId());
 		} 		
 	}

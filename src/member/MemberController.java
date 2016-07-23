@@ -47,7 +47,6 @@ public class MemberController extends HttpServlet {
 		    if (msg.equals("중복 ID 입니다.")||msg.equals("회원가입 실패")) {
 		    	Separator.command.setPage("regist");
 				Separator.command.setView();
-				request.setAttribute("name", msg);
 			} else {
 				Separator.command.setPage("login");
 				Separator.command.setView();
@@ -67,6 +66,12 @@ public class MemberController extends HttpServlet {
 			request.setAttribute("member", member);
 			break;
 		case "update2":
+			String pw = request.getParameter("pw");
+			String email = request.getParameter("email");
+			String id = request.getParameter("id");
+			member.setChangepw(pw);
+			member.setEmail(email);
+			member.setId(id);
 			service.update(member);
 			member = service.show();
 			Separator.command.setPage("detail");
@@ -77,19 +82,13 @@ public class MemberController extends HttpServlet {
 			request.setAttribute("member", member);
 			break;
 		case "delete1":
-			member = service.show();
-			System.out.println("member ID : "+member.getId());
-			System.out.println("member pw : "+member.getPw());
-			String id = member.getId();
-			String pw = member.getPw();
+			String id1 = request.getParameter("id");
+			String pw1 = request.getParameter("pw");
 			String confpw = request.getParameter("confpw");
-			System.out.println("ID : "+id);
-			System.out.println("pw : "+pw);
-			System.out.println("confpw : "+confpw);
-			if(pw.equals(confpw)){
-				member.setId(id);
+			if(pw1.equals(confpw)){
+				member.setId(id1);
 				member.setPw(confpw);	
-				String msg1 = service.delete(id);
+				String msg1 = service.delete(id1);
 				member = service.show();
 				Separator.command.setDirectory(request.getParameter("directory"));
 				request.setAttribute("member", member);
@@ -98,6 +97,23 @@ public class MemberController extends HttpServlet {
 				Separator.command.setView();
 				request.setAttribute("member", member);
 			}
+			break;
+		case "loginout":
+			member = service.show();
+			request.setAttribute("member", member);
+			break;
+		case "login_out":
+			member.setId(request.getParameter("id"));
+			member.setPw(request.getParameter("pw"));
+			service.logout(member);
+			Separator.command.setPage("login");
+			Separator.command.setView();
+			break;
+		case "count":
+			member = service.show();
+			request.setAttribute("member", member);
+			int cnt = service.count();
+			request.setAttribute("cnt", cnt);
 			break;
 		default:
 			member = service.show();

@@ -10,6 +10,8 @@
 		<form action="${context}/member.do" method="post">
 			<span class="meta">비밀번호 확인</span> <input type="password" name="confpw" />
 			</br></br>	
+			<input type="hidden" name="id" value="${member.id}" />
+			<input type="hidden" name="pw" value="${member.pw}" />
 			<input type="hidden" name="action" value="delete1" />
 			<input type="hidden" name=directory value="global" />
 			<input type="submit" value="탈 퇴"/>

@@ -4,7 +4,7 @@
 <jsp:include page="../global/navi.jsp" />
 <link rel="stylesheet" href="${css}/member.css" />
 	<div class="box">
-	<h2>회원수</h2>
+	<h2>회원수 ${cnt} 명 입니다.</h2>
 	</div>
 <jsp:include page="../global/footer.jsp"/>
 <jsp:include page="../global/end.jsp"/>
