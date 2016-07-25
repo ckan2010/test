@@ -29,7 +29,7 @@ public class MemberController extends HttpServlet {
 			member.setId(request.getParameter("id"));
 			member.setPw(request.getParameter("pw"));
 			member = service.login(member);
-			if (member.getId().equals("fail")) {
+			if (member.getId().equals("")) {
 				Separator.command.setPage("login");
 				Separator.command.setView();
 			} else {
