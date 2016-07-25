@@ -22,17 +22,19 @@ public class MemberController extends HttpServlet {
 		Command c = Separator.init(request,response);
 		MemberService service = MemberServiceImpl.getInstance();
 		MemberBean member = new MemberBean();
+		System.out.println("액션?"+Separator.command.getAction());
 		switch (Separator.command.getAction()) {
 		case "login":
 			member.setId(request.getParameter("id"));
 			member.setPw(request.getParameter("pw"));
 			String name = service.login(member);
-			if (name.equals("")) {
+			if (name.equals("fail")) {
 				Separator.command.setPage("login");
 				Separator.command.setView();
 			} else {
 				member = service.show();
 				Separator.command.setDirectory(request.getParameter("directory"));
+				Separator.command.setView();
 				request.setAttribute("member", member);
 			}
 			break;
@@ -43,6 +45,7 @@ public class MemberController extends HttpServlet {
 			member.setSsn(request.getParameter("ssn_id"));
 		    member.setEmail(request.getParameter("email"));
 		    member.setRegDate();
+		    member.setPhone(request.getParameter("phone"));
 		    String msg = service.open(member);
 		    if (msg.equals("중복 ID 입니다.")||msg.equals("회원가입 실패")) {
 		    	Separator.command.setPage("regist");
@@ -69,9 +72,11 @@ public class MemberController extends HttpServlet {
 			String pw = request.getParameter("pw");
 			String email = request.getParameter("email");
 			String id = request.getParameter("id");
+			String phone = request.getParameter("phone");
 			member.setChangepw(pw);
 			member.setEmail(email);
 			member.setId(id);
+			member.setPhone(phone);
 			service.update(member);
 			member = service.show();
 			Separator.command.setPage("detail");

@@ -69,14 +69,14 @@ public class MemberServiceImpl implements MemberService{
 	public String login(MemberBean member) {
 		String result = "";
 		if (findId(member.getId()) == 0) {
-			result = "";
+			result = "fail";
 		} else {
 			if (dao.login(member)) {
 				session = findById(member.getId());
 				result = session.getName();
 				accService.map();
 			} else {
-				result = "";
+				result = "fail";
 			}
 		}
 		return result;

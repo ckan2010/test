@@ -33,8 +33,8 @@ public class MemberDAO {
 	}
 	public int insert(MemberBean stu){
 		int result = 0;
-		String sql = "insert into member(id,pw,name,reg_date,ssn_id,email,profile_img) "
-				+ "values(?,?,?,?,?,?,?)";
+		String sql = "insert into member(id,pw,name,reg_date,ssn_id,email,profile_img,phone) "
+				+ "values(?,?,?,?,?,?,?,?)";
 		try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, stu.getId());
@@ -43,7 +43,8 @@ public class MemberDAO {
 			pstmt.setString(4, stu.getRegDate());
 			pstmt.setString(5, stu.getSsn());
 			pstmt.setString(6, stu.getEmail());
-			pstmt.setString(7, stu.getProfileImg());
+			pstmt.setString(7, stu.getId()+".jpg");
+			pstmt.setString(8, stu.getPhone());
 			result = pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -54,13 +55,15 @@ public class MemberDAO {
 		int result = 0;
 		String sql = "update member "
 				+ "set pw = ?, "
-				+ "email = NVL(?,email) "
+				+ "email = NVL(?,email), "
+				+ "phone = ? "
 			    + "where id = ? ";
 		try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, stu.getChangepw());
 			pstmt.setString(2, stu.getEmail());
-			pstmt.setString(3, stu.getId());
+			pstmt.setString(3, stu.getPhone());
+			pstmt.setString(4, stu.getId());
 			result = pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -92,6 +95,7 @@ public class MemberDAO {
 				mem.setRegDate(rs.getString("REG_DATE"));
 				mem.setEmail(rs.getString("EMAIL"));
 				mem.setProfileImg(rs.getString("PROFILE_IMG"));
+				mem.setPhone(rs.getString("PHONE"));
 				tempList.add(mem);
 			}
 		} catch (Exception e) {
@@ -112,6 +116,7 @@ public class MemberDAO {
 				tempBean.setRegDate(rs.getString("REG_DATE"));
 				tempBean.setEmail(rs.getString("EMAIL"));
 				tempBean.setProfileImg(rs.getString("PROFILE_IMG"));
+				tempBean.setPhone(rs.getString("PHONE"));
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -132,6 +137,7 @@ public class MemberDAO {
 				mem.setRegDate(rs.getString("REG_DATE"));
 				mem.setEmail(rs.getString("EMAIL"));
 				mem.setProfileImg(rs.getString("PROFILE_IMG"));
+				mem.setPhone(rs.getString("PHONE"));
 				tempList.add(mem);
 			}
 		} catch (Exception e) {

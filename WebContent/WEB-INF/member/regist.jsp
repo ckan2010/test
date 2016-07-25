@@ -15,6 +15,19 @@
 		<span class="meta">비밀번호</span><input type="password" name="pw" /><br />
 		<span class="meta">SSN</span><input type="text" name="ssn_id"/><br />
 		<span class="meta">이메일</span><input type="text" name="email"/><br />
+		<span class="meta">전화번호</span><input type="text" name="phone"/><br />
+		<span class="meta">전공</span> <br /><br />
+		<input type="radio" name="major" value="computer" checked/> 컴공학부
+		<input type="radio" name="major" value="mgmt" /> 경영학부
+		<input type="radio" name="major" value="math" /> 수학부 
+		<input type="radio" name="major" value="eng" /> 영문학부 <br /><br /><br/></brr>
+		<span class="meta">수강과목</span> <br /><br />
+		<input type="checkbox" name="subject" value="java" /> Java
+		<input type="checkbox" name="subject" value="sql" /> SQL
+		<input type="checkbox" name="subject" value="cpp" /> C++
+		<input type="checkbox" name="subject" value="python" /> 파이썬
+		<input type="checkbox" name="subject" value="delphi" /> 델파이
+		<input type="checkbox" name="subject" value="html" /> HTML
 		<br /><br />
 		<input type="hidden" name="action" value="regist" />
 		<input type="submit" value="회원가입"/>

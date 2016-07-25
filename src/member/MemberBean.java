@@ -17,7 +17,7 @@ import global.Constants;
  */
 public class MemberBean implements Serializable{
 	private static final long serialVersionUID = 1L;
-	private String name,id,pw,ssn,regDate,gender,profileImg,changepw,confirmpw,email;
+	private String name,id,pw,ssn,regDate,gender,profileImg,changepw,confirmpw,email,phone;
 	private int birth,year,curyear;
 	public MemberBean() {
 		// default constructor 기본 생성자
@@ -146,5 +146,11 @@ public class MemberBean implements Serializable{
 	}
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 }

@@ -15,7 +15,7 @@
 		<h2>내정보보기</h2>
 		<table id="member_detail">
 		<tr>
-			<td rowspan="4" style="width:30%">
+			<td rowspan="5" style="width:30%">
 				<img src="${img}/${member.profileImg}" alt="W3Schools.com" width="160" height="300">
 			</td>
 			<td class="font_bold bg_color" style="width:20%">ID</td>
@@ -32,6 +32,10 @@
 		<tr>
 			<td class="font_bold bg_color">이메일</td>
 			<td colspan="2">${member.email}</td>
+		</tr>
+		<tr>
+			<td class="font_bold bg_color">전화번호</td>
+			<td colspan="2">${member.phone}</td>
 		</tr>
 		<tr>
 			<td class="font_bold bg_color">생년월일</td>

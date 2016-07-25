@@ -15,35 +15,43 @@
 		<form action="${context}/member.do" method="post">
 		<table id="member_detail">
 				<tr>
-				<td rowspan="5" style="width:30%">
-				<img src="${img}/${member.getProfileImg()}" alt="W3Schools.com" width="104"
+				<td rowspan="6" style="width:30%">
+				<img src="${img}/${member.profileImg}" alt="W3Schools.com" width="104"
 			height="142"></td>
 				<td class="font_bold bg_color" style="width:20%">ID</td>
-				<td style="width:40%">${member.getId()}</td>
+				<td style="width:40%">${member.id}</td>
 			</tr>
 			<tr>
 				<td class="font_bold bg_color">비밀번호</td>
 				<td>
 				<input type="text" name="pw" 
-					value="${member.getPw()}"/>
+					value="${member.pw}"/>
 				</td>
 			</tr>
 			<tr>
 				<td class="font_bold bg_color">이 름</td>
-				<td>${member.getName()}</td>
+				<td>${member.name}</td>
 			</tr>
 			
 			<tr>
 				
 				<td class="font_bold bg_color">성 별</td>
-				<td>${member.getGender()}</td>
+				<td>${member.gender}</td>
 			</tr>
 			<tr>
 				
 				<td class="font_bold bg_color">이메일</td>
 				<td>
 					<input type="text" name="email" 
-					value="${member.getEmail()}"/>
+					value="${member.email}"/>
+				</td>
+			</tr>
+			<tr>
+				
+				<td class="font_bold bg_color">전화번호</td>
+				<td>
+					<input type="text" name="email" 
+					value="${member.phone}"/>
 				</td>
 			</tr>
 			<tr>
@@ -52,11 +60,11 @@
 			</tr>
 			<tr>
 				<td class="font_bold bg_color">등록일</td>
-				<td colspan="2">${member.getRegDate()}</td>
+				<td colspan="2">${member.regDate}</td>
 				
 			</tr>
 		</table><br />
-		<input type="hidden" name="id" value="${member.getId()}"/>
+		<input type="hidden" name="id" value="${member.id}"/>
 		<input type="hidden" name="action" value="update2"/>
 		<input type="submit" value="수 정" />
 		<input type="reset" value="취 소" />
