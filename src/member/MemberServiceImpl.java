@@ -63,7 +63,7 @@ public class MemberServiceImpl implements MemberService{
 		// TODO Auto-generated method stub
 		return null;
 	}
-	public MemberBean login(MemberBean member) {
+	public String login(MemberBean member) {
 		String result = "";
 		if (findId(member.getId()) == 0) {
 			result = "fail";
@@ -76,7 +76,7 @@ public class MemberServiceImpl implements MemberService{
 				result = "fail";
 			}
 		}
-		return session;
+		return result;
 	}
 	@Override
 	public int genderCount(String gender) {
