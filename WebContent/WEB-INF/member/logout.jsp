@@ -6,7 +6,7 @@
 		<form action="${context}/member.do" method="post">
 			<input type="hidden" name="id" value="${member.id}" />
 			<input type="hidden" name="pw" value="${member.pw}" />
-			<input type="hidden" name="action" value="login_out" />
+			<input type="hidden" name="action" value="log_out" />
 			<input type="submit" value="로그아웃" />
 		</form>
 	</div>

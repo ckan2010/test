@@ -2,12 +2,12 @@ package member;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import global.Command;
 import global.DispatcherServlet;
@@ -19,6 +19,7 @@ public class MemberController extends HttpServlet {
 	
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("=== member컨트롤러 진입 ===");
+		HttpSession session = request.getSession();
 		Command c = Separator.init(request,response);
 		MemberService service = MemberServiceImpl.getInstance();
 		MemberBean member = new MemberBean();
@@ -27,15 +28,15 @@ public class MemberController extends HttpServlet {
 		case "login":
 			member.setId(request.getParameter("id"));
 			member.setPw(request.getParameter("pw"));
-			String name = service.login(member);
-			if (name.equals("fail")) {
+			member = service.login(member);
+			if (member.getId().equals("fail")) {
 				Separator.command.setPage("login");
 				Separator.command.setView();
 			} else {
-				member = service.show();
-				Separator.command.setDirectory(request.getParameter("directory"));
-				Separator.command.setView();
 				request.setAttribute("member", member);
+				session.setAttribute("member", member);
+				Separator.command.setDirectory("global");
+				Separator.command.setView();
 			}
 			break;
 		case "regist":
@@ -60,54 +61,32 @@ public class MemberController extends HttpServlet {
 			if (member.getId().equals("")) {
 				Separator.command.setPage("login");
 				Separator.command.setView();
-			} else {
-				request.setAttribute("member", member);
 			}
 			break;
 		case "update":
-			member = service.show();
-			request.setAttribute("member", member);
-			break;
-		case "update2":
-			String pw = request.getParameter("pw");
-			String email = request.getParameter("email");
-			String id = request.getParameter("id");
-			String phone = request.getParameter("phone");
-			member.setChangepw(pw);
-			member.setEmail(email);
-			member.setId(id);
-			member.setPhone(phone);
+			member = (MemberBean) session.getAttribute("member");
+			member.setChangepw(request.getParameter("pw"));
+			member.setEmail(request.getParameter("email"));
+			member.setId(request.getParameter("id"));
+			member.setPhone(request.getParameter("phone"));
 			service.update(member);
-			member = service.show();
-			Separator.command.setPage("detail");
-			Separator.command.setView();
-			request.setAttribute("member", member);
-		case "delete":
-			member = service.show();
-			request.setAttribute("member", member);
 			break;
 		case "delete1":
-			String id1 = request.getParameter("id");
-			String pw1 = request.getParameter("pw");
+			member = (MemberBean) session.getAttribute("member");
 			String confpw = request.getParameter("confpw");
-			if(pw1.equals(confpw)){
-				member.setId(id1);
+			session.invalidate();
+			if(request.getParameter("pw").equals(confpw)){
+				member.setId(request.getParameter("id"));
 				member.setPw(confpw);	
-				String msg1 = service.delete(id1);
-				member = service.show();
+				String msg1 = service.delete(request.getParameter("id"));
 				Separator.command.setDirectory(request.getParameter("directory"));
-				request.setAttribute("member", member);
+				Separator.command.setView();
 			}else{
 				Separator.command.setPage("delete");
 				Separator.command.setView();
-				request.setAttribute("member", member);
 			}
 			break;
-		case "loginout":
-			member = service.show();
-			request.setAttribute("member", member);
-			break;
-		case "login_out":
+		case "log_out":
 			member.setId(request.getParameter("id"));
 			member.setPw(request.getParameter("pw"));
 			service.logout(member);
@@ -115,14 +94,20 @@ public class MemberController extends HttpServlet {
 			Separator.command.setView();
 			break;
 		case "count":
-			member = service.show();
-			request.setAttribute("member", member);
 			int cnt = service.count();
 			request.setAttribute("cnt", cnt);
 			break;
+		case "find_by_id":
+			request.setAttribute("member", service.findById(request.getParameter("keyword")));
+			
+			break;
+		case "find_by_name":
+			service.findBy(request.getParameter("keyword"));
+			break;
+		case "list":
+			request.setAttribute("list", service.list());
+			break;
 		default:
-			member = service.show();
-			request.setAttribute("member", member);
 			break;
 		}
 		DispatcherServlet.send(request, response, Separator.command);

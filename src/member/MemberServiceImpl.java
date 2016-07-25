@@ -32,10 +32,7 @@ public class MemberServiceImpl implements MemberService{
 	}
 	@Override
 	public void update(MemberBean stu) {
-		if (dao.update(stu) !=0 ) {
-			System.out.println("update 건수 : "+dao.update(stu));
-			session = this.findById(stu.getId());
-		} 		
+		dao.update(stu);
 	}
 	@Override
 	public String delete(String id) {
@@ -66,7 +63,7 @@ public class MemberServiceImpl implements MemberService{
 		// TODO Auto-generated method stub
 		return null;
 	}
-	public String login(MemberBean member) {
+	public MemberBean login(MemberBean member) {
 		String result = "";
 		if (findId(member.getId()) == 0) {
 			result = "fail";
@@ -79,7 +76,7 @@ public class MemberServiceImpl implements MemberService{
 				result = "fail";
 			}
 		}
-		return result;
+		return session;
 	}
 	@Override
 	public int genderCount(String gender) {

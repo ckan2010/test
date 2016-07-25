@@ -1,58 +1,30 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<link rel="stylesheet" href="${css}/global.css" />
+<link rel="stylesheet" href="${css}/member.css" />
 <jsp:include page="../global/top.jsp" />
 <jsp:include page="../global/header.jsp" />
 <jsp:include page="../global/navi.jsp" />
-<link rel="stylesheet" href="${css}/member.css" />
-<style>
-table {
-    font-family: arial, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
-}
-
-td, th {
-    border: 1px solid #dddddd;
-    text-align: left;
-    padding: 8px;
-}
-
-tr:nth-child(even) {
-    background-color: #dddddd;
-}
-</style>
 <div class="box">
 	<h2>리스트</h2>
-	<table>
+	<table id="member_list">
   <tr>
-    <th>ID</th>
-    <th>이 름</th>
-    <th>등록일</th>
-    <th>생년월일</th>
+    <th>I D</th>
+    <th>이   름</th>
+    <th>등 록 일</th>
+    <th>생 년 월 일</th>
+    <th>이 메 일</th>
+    <th>전 화 번 호</th>
   </tr>
+  <c:forEach var="member" items="${list}">
   <tr>
-    <td>hong</td>
-    <td><a href="detail.jsp">홍길동</a></td>
-    <td>2016-07-03</td>
-    <td>900101</td>
+    <td>${member.id}</td>
+    <td><a href="${context}/member.do?action=find_by_id&page=find_by_id&keyword=${member.id}">${member.name }</a></td>
+    <td>${member.regDate}</td>
+    <td>${member.ssn.substring(0,6)}</td>
+    <td>${member.email}</td>
+    <td>${member.phone}</td>
   </tr>
-  <tr>
-    <td>lee</td>
-    <td><a href="detail.jsp">이순신</a></td>
-    <td>2016-06-03</td>
-    <td>920201</td>
-  </tr>
-  <tr>
-    <td>park</td>
-    <td><a href="detail.jsp">박지성</a></td>
-    <td>2016-05-03</td>
-    <td>930301</td>
-  </tr>
-  <tr>
-    <td>kim</td>
-    <td><a href="detail.jsp">김유신</a></td>
-    <td>2016-05-13</td>
-    <td>020401</td>
-  </tr>
+  </c:forEach>
 </table>
 </div>		
 <jsp:include page="../global/footer.jsp"/>

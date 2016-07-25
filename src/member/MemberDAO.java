@@ -84,7 +84,7 @@ public class MemberDAO {
 		return result;
 	}
 	// list
-	public List<?> list(){
+	public List<MemberBean> list(){
 		String sql = "select * from member";
 		List<MemberBean> tempList = new ArrayList<MemberBean>();
 		try {

@@ -1,15 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<link rel="stylesheet" href="${css}/global.css" />
+<link rel="stylesheet" href="${css}/member.css" />
 <jsp:include page="../global/top.jsp" />
 <jsp:include page="../global/header.jsp" />
 <jsp:include page="../global/navi.jsp" />
-<link rel="stylesheet" href="${css}/member.css" />
-<style>
-		#member_detail{border: 1px solid gray;width:100%;height: 400px;margin: 0 auto;border-collapse: collapse;}
-		#member_detail tr{border: 1px solid gray;height: 20%}
-		#member_detail td{border: 1px solid gray;}
-		.font_bold{font-weight:bold;}
-		.bg_color{background-color: yellow}
-</style>
 <div class="box">
 		<h2>회원정보 수정</h2>
 		<form action="${context}/member.do" method="post">
@@ -50,7 +44,7 @@
 				
 				<td class="font_bold bg_color">전화번호</td>
 				<td>
-					<input type="text" name="email" 
+					<input type="text" name="phone" 
 					value="${member.phone}"/>
 				</td>
 			</tr>
@@ -65,7 +59,8 @@
 			</tr>
 		</table><br />
 		<input type="hidden" name="id" value="${member.id}"/>
-		<input type="hidden" name="action" value="update2"/>
+		<input type="hidden" name="action" value="update"/>
+		<input type="hidden" name="page" value="detail"/>
 		<input type="submit" value="수 정" />
 		<input type="reset" value="취 소" />
 		</form>

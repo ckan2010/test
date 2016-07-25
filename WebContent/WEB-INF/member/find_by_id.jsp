@@ -5,7 +5,7 @@
 <jsp:include page="../global/header.jsp" />
 <jsp:include page="../global/navi.jsp" />
 <div class="box">
-		<h2>내정보보기</h2>
+		<h2>검색된 회원 정보</h2>
 		<table id="member_detail">
 		<tr>
 			<td rowspan="5" style="width:30%">
