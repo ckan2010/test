@@ -28,11 +28,12 @@ public class MemberController extends HttpServlet {
 		case "login":
 			member.setId(request.getParameter("id"));
 			member.setPw(request.getParameter("pw"));
-			member = service.login(member);
-			if (member.getId().equals("")) {
+			String name = service.login(member);
+			if (name.equals("fail")) {
 				Separator.command.setPage("login");
 				Separator.command.setView();
 			} else {
+				member = service.show();
 				request.setAttribute("member", member);
 				session.setAttribute("member", member);
 				Separator.command.setDirectory("global");
@@ -99,10 +100,9 @@ public class MemberController extends HttpServlet {
 			break;
 		case "find_by_id":
 			request.setAttribute("member", service.findById(request.getParameter("keyword")));
-			
 			break;
 		case "find_by_name":
-			service.findBy(request.getParameter("keyword"));
+			request.setAttribute("list", service.findBy(request.getParameter("keyword")));
 			break;
 		case "list":
 			request.setAttribute("list", service.list());
