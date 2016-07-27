@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class GradeBean implements Serializable{
 	private static final long serialVersionUID = 1L;
-	private String id,grade,examdate,className,name;
+	private String id,grade,examdate,className,name,subject,major;
 	private int java,sql,html,javascript,seq,updatescore;
 	public GradeBean() {
 	}
@@ -74,6 +74,18 @@ public class GradeBean implements Serializable{
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	public String getSubject() {
+		return subject;
+	}
+	public void setSubject(String subject) {
+		this.subject = subject;
+	}
+	public String getMajor() {
+		return major;
+	}
+	public void setMajor(String major) {
+		this.major = major;
 	}
 	@Override
 	public String toString() {

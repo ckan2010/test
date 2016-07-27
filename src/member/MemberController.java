@@ -11,7 +11,12 @@ import javax.servlet.http.HttpSession;
 
 import global.Command;
 import global.DispatcherServlet;
+import global.ParamMap;
 import global.Separator;
+import subject.SubjectBean;
+import subject.SubjectMember;
+import subject.SubjectService;
+import subject.SubjectServiceImpl;
 
 @WebServlet("/member.do")
 public class MemberController extends HttpServlet {
@@ -23,19 +28,21 @@ public class MemberController extends HttpServlet {
 		Command c = Separator.init(request,response);
 		MemberService service = MemberServiceImpl.getInstance();
 		MemberBean member = new MemberBean();
+		SubjectBean sub = new SubjectBean();
+		SubjectService subservice = SubjectServiceImpl.getInstance();
+		SubjectMember sm = new SubjectMember();
 		System.out.println("액션?"+Separator.command.getAction());
 		switch (Separator.command.getAction()) {
 		case "login":
 			member.setId(request.getParameter("id"));
 			member.setPw(request.getParameter("pw"));
-			String name = service.login(member);
-			if (name.equals("fail")) {
+			sm = service.login(member);
+			if (sm.getId().equals("fail")) {
 				Separator.command.setPage("login");
 				Separator.command.setView();
 			} else {
-				member = service.show();
-				request.setAttribute("member", member);
-				session.setAttribute("member", member);
+				request.setAttribute("user", sm);
+				session.setAttribute("user", sm);
 				Separator.command.setDirectory("global");
 				Separator.command.setView();
 			}
@@ -53,12 +60,15 @@ public class MemberController extends HttpServlet {
 		    	Separator.command.setPage("regist");
 				Separator.command.setView();
 			} else {
+				sub.setId(request.getParameter("id"));
+				sub.setMajor(request.getParameter("major"));
+				sub.setSubjects(ParamMap.getValues(request, "subject"));
+				subservice.insert(sub);
 				Separator.command.setPage("login");
 				Separator.command.setView();
 			}
 			break;
 		case "detail":
-			member = service.show();
 			if (member.getId().equals("")) {
 				Separator.command.setPage("login");
 				Separator.command.setView();

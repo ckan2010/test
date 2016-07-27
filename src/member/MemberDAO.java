@@ -11,6 +11,7 @@ import java.util.List;
 import global.Constants;
 import global.DatabaseFactory;
 import global.Vendor;
+import subject.SubjectMember;
 
 /**
  * @date :2016. 7. 1.
@@ -117,6 +118,7 @@ public class MemberDAO {
 				tempBean.setEmail(rs.getString("EMAIL"));
 				tempBean.setProfileImg(rs.getString("PROFILE_IMG"));
 				tempBean.setPhone(rs.getString("PHONE"));
+				System.out.println("존재 ID : "+tempBean.getId());
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -160,15 +162,18 @@ public class MemberDAO {
 		}
 		return result;
 	}
-	public boolean login(MemberBean member){
-		boolean loginOk = false;
-		MemberBean m = this.findById(member.getId());
-		if(m.getPw().equals(member.getPw())){
-			loginOk = true;
+	public boolean login(MemberBean param) {
+		boolean loginOk= false;
+		if(param.getId()!=null 
+				&& param.getPw()!=null 
+				&& this.existId(param.getId())){
+			MemberBean member = this.findById(param.getId());
+			if(member.getPw().equals(param.getPw())){
+				loginOk = true;
+			}
 		}
 		return loginOk;
 	}
-
 	public int findByGender(String gender) {
 		int result = 0;
 		String sql = "select count(*) count from member "
@@ -223,5 +228,25 @@ public class MemberDAO {
 			e.printStackTrace();
 		}
 		return result;
+	}
+	public boolean existId(String id){
+		boolean existOK = false;
+		String sql = "select count(*) as count from member where id = ?";
+		int result = 0;
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			if(rs.next()){
+				result = rs.getInt("count");
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if(result == 1){
+			existOK = true;
+		}
+		return existOK;
 	}
 }

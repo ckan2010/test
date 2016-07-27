@@ -9,35 +9,35 @@
 		<form action="${context}/member.do" method="post">
 		<table id="member_detail">
 				<tr>
-				<td rowspan="6" style="width:30%">
-				<img src="${img}/${member.profileImg}" alt="W3Schools.com" width="104"
+				<td rowspan="7" style="width:30%">
+				<img src="${img}/${user.img}" alt="W3Schools.com" width="104"
 			height="142"></td>
 				<td class="font_bold bg_color_yellow" style="width:20%">ID</td>
-				<td style="width:40%">${member.id}</td>
+				<td style="width:40%">${user.id}</td>
 			</tr>
 			<tr>
 				<td class="font_bold bg_color_yellow">비밀번호</td>
 				<td>
 				<input type="text" name="pw" 
-					value="${member.pw}"/>
+					value="${user.pw}"/>
 				</td>
 			</tr>
 			<tr>
 				<td class="font_bold bg_color_yellow">이 름</td>
-				<td>${member.name}</td>
+				<td>${user.name}</td>
 			</tr>
 			
 			<tr>
 				
 				<td class="font_bold bg_color_yellow">성 별</td>
-				<td>${member.gender}</td>
+				<td>${user.gender}</td>
 			</tr>
 			<tr>
 				
 				<td class="font_bold bg_color_yellow">이메일</td>
 				<td>
 					<input type="text" name="email" 
-					value="${member.email}"/>
+					value="${user.email}"/>
 				</td>
 			</tr>
 			<tr>
@@ -45,17 +45,25 @@
 				<td class="font_bold bg_color_yellow">전화번호</td>
 				<td>
 					<input type="text" name="phone" 
-					value="${member.phone}"/>
+					value="${user.phone}"/>
 				</td>
 			</tr>
 			<tr>
+				
+				<td class="font_bold bg_color_yellow">전공과목</td>
+				<td>${user.major}</td>
+			</tr>
+			<tr>
+				<td class="font_bold bg_color_yellow">수강과목</td>
+				<td colspan="2">${user.subjects}</td>
+			</tr>
+			<tr>
 				<td class="font_bold bg_color_yellow">생년월일</td>
-				<td colspan="2">${member.getSsn().substring(0,6)}</td>
+				<td colspan="2">${user.birth}</td>
 			</tr>
 			<tr>
 				<td class="font_bold bg_color_yellow">등록일</td>
-				<td colspan="2">${member.regDate}</td>
-				
+				<td colspan="2">${user.reg_date}</td>
 			</tr>
 		</table><br />
 		<input type="hidden" name="id" value="${member.id}"/>

@@ -5,12 +5,16 @@ import java.util.Map;
 
 import account.AccountService;
 import account.AccountServiceImpl;
+import subject.SubjectBean;
+import subject.SubjectDAO;
+import subject.SubjectMember;
 
 public class MemberServiceImpl implements MemberService{
-	MemberDAO dao = MemberDAO.getInstance(); // 싱글톤 패턴
-	AccountService accService = AccountServiceImpl.getInstance();
-	public static MemberBean session;
-	MemberBean s;
+	private MemberDAO dao = MemberDAO.getInstance(); // 싱글톤 패턴
+	private AccountService accService = AccountServiceImpl.getInstance();
+	private MemberBean session;
+	private MemberBean s;
+	private SubjectDAO subjDao = SubjectDAO.getInstance();
 	private static MemberServiceImpl instance = new MemberServiceImpl();
 	public static MemberServiceImpl getInstance() {
 		return instance;
@@ -63,20 +67,38 @@ public class MemberServiceImpl implements MemberService{
 		// TODO Auto-generated method stub
 		return null;
 	}
-	public String login(MemberBean member) {
-		String result = "";
-		if (findId(member.getId()) == 0) {
-			result = "fail";
+	public SubjectMember login(MemberBean member) {
+		SubjectMember sm = new SubjectMember();
+		SubjectBean sb =new SubjectBean();
+		if(dao.findId(member.getId()) == 0) {
+			sm.setId("fail");
 		} else {
+			// 2.로그인
 			if (dao.login(member)) {
-				session = findById(member.getId());
-				result = session.getName();
+				session = dao.findById(member.getId());
 				accService.map();
-			} else {
-				result = "fail";
+				if(subjDao.findId(session.getId()) == 0){
+					sm.setId("fail");
+				} else {
+					sb = subjDao.findById(member.getId());
+					sm.setEmail(session.getEmail());
+					sm.setId(session.getId());
+					sm.setImg(session.getProfileImg());
+					sm.setMajor(sb.getMajor());
+					sm.setName(session.getName());
+					sm.setPhone(session.getPhone());
+					sm.setPw(session.getPw());
+					sm.setReg_date(session.getRegDate());
+					sm.setSsn_id(session.getSsn());
+					sm.setSubjects(sb.getSubjects());
+					sm.setBirth(session.getSsn().substring(0,6));
+					sm.setGender(session.getGender());
+				}
+			}else{
+				sm.setId("fail");
 			}
 		}
-		return result;
+		return sm;
 	}
 	@Override
 	public int genderCount(String gender) {
