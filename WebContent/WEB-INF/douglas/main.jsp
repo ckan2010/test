@@ -6,13 +6,14 @@
 <link rel="stylesheet" href="${css}/douglas.css" />
 <div id="container">
 	<section>
-		<button id="bom">BOM(Browser Object Model)</button></br>
-		<button id="dom">DOM(Document Object Model)</button></br>
-		<button id="kaup">KAUP</button>
+		<button id="bt_bom">BOM(Browser Object Model)</button></br>
+		<button id="bt_dom">DOM(Document Object Model)</button></br>
+		<button id="bt_kaup">KAUP</button></br>
+		<button id="bt_creator">CREATOR</button>
 	</section>		
 </div>	
 <jsp:include page="../global/footer.jsp"/>
 <jsp:include page="../global/end.jsp"/>
 <script>
-	window.onload=init("${context}");
+	window.onload=context.init("${context}");
 </script>

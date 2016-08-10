@@ -1,9 +1,9 @@
 @CHARSET "UTF-8";
-#formbox{
-	float: left;
+.formbox{
 	padding: 20px;
 	border: 1px solid #999999;
 	margin: 0 auto;
+	display:block;
 }
 #databox{
 	float: left;

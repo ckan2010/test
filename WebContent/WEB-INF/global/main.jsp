@@ -5,12 +5,12 @@
 <jsp:include page="../global/navi.jsp" />
 <link rel="stylesheet" href="${css}/global.css" />
 	<div id="section" >
-		<button id="bt" style="margin: 0 auto;">
+		<button id="bt_js_go" style="margin: 0 auto;">
 			모던 자바스크립트 GO!
 		</button>
 	</div>
 <jsp:include page="footer.jsp"/>
 <jsp:include page="../global/end.jsp"/>
 <script>
-	window.onload=init("${context}");
+	window.onload=global.init("${context}");
 </script>
