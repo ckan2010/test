@@ -4,14 +4,14 @@
 <head>
 	<meta charset="UTF-8" />
 	<title>Document</title>
-	<script src="${js}/index.js">
-		
-	</script>
+	
 </head>
 <body>
 	<a href="#" id="atag">홈으로</a> 
 </body>
+<script src="${js}/application.js">	</script>
 <script type="text/javascript">
-	window.onload=start("${context}");
+	application.init("${context}");
+	application.go_home();
 </script>
 </html>

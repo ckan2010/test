@@ -1,127 +1,147 @@
-var context = {
-	name : '',
-	setContext : function(context){
-		this.name = context;
-	},
-	init : function(context) {
-		var bt_bom = document.querySelector('#bt_bom');
-		var bt_dom = document.querySelector('#bt_dom');
-		var bt_kaup = document.querySelector('#bt_kaup');
-		var bt_creator = document.querySelector('#bt_creator');
-		console.log('CONTEXT : '+context);
-		this.setContext(context);
-		console.log('CONTEXT : '+this.name);
-		
-		bt_bom.addEventListener('click',this.bom_go,false);
-		bt_dom.addEventListener('click',this.dom_go,false);
-		bt_kaup.addEventListener('click',this.kaup_go,false);
-		bt_creator.addEventListener('click',this.creator_go,false);
-	},
-	bom_go : function() {
-		location.href=context.name+'/douglas.do?page=bom';
-	},
-	dom_go : function() {
-		location.href=context.name+'/douglas.do?page=dom';
-	},
-	creator_go : function() {
-		location.href=context.name+'/douglas.do?page=creator';
-	}
-};
-/*kaup*/
-function kaup_init(){
-	var bt_kaup_calc = document.querySelector('#bt_kaup_calc');
-	bt_kaup_calc.addEventListener('click',kaup_calc,false);
+var move = function(context,page){
+	location.href=context+'/douglas.do?page='+page;
 }
-function kaup_go(){
-	location.href=getContext()+'/douglas.do?page=kaup';
-}
-function kaup_calc(){
-	var name=document.querySelector('#name').value;
-	var height=document.querySelector('#height').value;
-	var weight=document.querySelector('#weight').value;
-	console.log('name'+name);
-	console.log('height'+height);
-	console.log('weight'+weight);
-	var result = '';
-	var kaup = weight / (height / 100) / (height / 100);
-	console.log('kaup : '+kaup);
-	if (kaup < 18.5) {
-		result = "저체중";
-	} else if (kaup <= 22.9 && kaup >= 18.5) {
-		result = "정상";
-	} else if (kaup <= 24.9 && kaup >= 23.0) {
-		result = "위험체중";
-	} else if (kaup <= 29.9 && kaup >= 25.0) {
-		result = "비만1단계";
-	} else if (kaup <= 40 && kaup >= 30.0) {
-		result = "비만2단계";
-	} else if (kaup > 40) {
-		result = "비만3단계";
-	}
-	document.querySelector('#result').innerHTML=name+' 의 카우푸결과 '+result;
-	/*return name+" 은 BMI 지수는 "+ Double.parseDouble(String.format("%.2f", bmigisu)) +" 이고 "+kaupu+" 이다";*/
-}
-function account_spec(){
-	var account = {
-			account_no : 0,
-			money : 0
-	}
-	account.account_no = Math.floor((Math.random() * 899999) + 100000);
-	account.money = document.querySelector('#money').value;
-	document.querySelector('#result_account').innerHTML=account.account_no;
-}
-function member_spec(){
-	var member = new Object();
-	member.name = document.querySelector('#name').value;
-	member.age = 0;
-	member.gender = '';
-	var curyear = Number(new Date().getFullYear());
-	var gendergubun = document.querySelector('#ssn').value.substring(7,8);
-	var year = Number(document.querySelector('#ssn').value.substring(0,2));
-	switch (Number(gendergubun)) {
-	case 1:case 5:
-		member.gender = "남";
-		year += 1900;
-		break;
-	case 3:case 7:
-		member.gender = "남";
-		year += 2000;
-		break;		
-	case 2:case 6:
-		member.gender = "여";
-		year += 1900;
-		break;
-	case 4:case 8:
-		member.gender = "여";
-		year += 2000;
-		break;
-	default:
-		break;
-	}
-	member.age = curyear - year + 1;
-	document.querySelector('#result_name').innerHTML=member.name;
-	document.querySelector('#result_age').innerHTML=member.age;
-	document.querySelector('#result_gender').innerHTML=member.gender;
-	
-}
-function deposit_spec(){
-	var rest_money = 0;
-	rest_money = rest_money + Number(document.querySelector('#money').value);
-	document.querySelector('#rest_money').innerHTML=rest_money;
-}
-function withdrawal_spec(){
-	var rest_money = 0;
-	rest_money = rest_money - Number(document.querySelector('#money').value);
-	document.querySelector('#rest_money').innerHTML=rest_money;
-}
-var create = {
-	create_init : function(){
-		document.querySelector('#bt_spec_show').addEventListener('click',member_spec,false);
-		document.querySelector('#bt_make_account').addEventListener('click',account_spec,false);
-		document.querySelector('#bt_deposit').addEventListener('click',deposit_spec,false);
-		document.querySelector('#bt_withdrawal').addEventListener('click',withdrawal_spec,false);
-	}
-}
-var member = {
-		
-}
+var douglas = (function(){
+	var context = sessionStorage.getItem("context");	
+	return{
+		init : function(){
+			document.querySelector('#bt_bom').addEventListener('click',function(){move(context,'bom');},false);
+			document.querySelector('#bt_dom').addEventListener('click',function(){move(context,'dom');},false);
+			document.querySelector('#bt_kaup').addEventListener('click',function(){move(context,'kaup');},false);
+			document.querySelector('#bt_account').addEventListener('click',function(){move(context,'account');},false);
+		}
+	};
+})();
+var account = (function(){
+	var _account_no,_money;
+	var setAccountNo = function(account_no){this._account_no=account_no;}
+	var getAccountNo = function(){return this._account_no;}
+	var setMoney = function(money){this._money=money;}
+	var getMoney = function(){return this._money;}
+	return{
+		setAccountNo : setAccountNo,
+		getAccountNo : getAccountNo,
+		setMoney : setMoney,
+		getMoney : getMoney,
+		init : function(){
+		document.querySelector('#bt_spec_show').addEventListener('click',member.spec,false);
+		document.querySelector('#bt_make_account').addEventListener('click',this.spec,false);
+		document.querySelector('#bt_deposit').addEventListener('click',this.deposit,false);
+		document.querySelector('#bt_withdrawal').addEventListener('click',this.withdrawal,false);
+		},
+		spec : function(){
+			setAccountNo(Math.floor((Math.random() * 899999) + 100000));
+			document.querySelector('#result_account').innerHTML= getAccountNo();
+			setMoney(0);
+		},
+		deposit : function(){
+			var input_money = Number(document.querySelector('#money').value);
+			var rest_money = getMoney();
+			console.log('인풋 머니 타입 체크 : '+(typeof input_money === 'number'));
+			console.log('잔액 차입 체크 : '+(typeof rest_money === 'number'))
+			console.log("입금액 : "+input_money);
+			console.log("잔액 : "+rest_money);
+			setMoney(input_money + rest_money);
+			document.querySelector('#rest_money').innerHTML=getMoney();
+		},
+		withdrawal : function(){
+			var input_money = Number(document.querySelector('#money').value);
+			var rest_money = getMoney();
+			setMoney(rest_money - input_money);
+			document.querySelector('#rest_money').innerHTML=getMoney();
+		}
+	};
+})();
+var kaup = (function(){
+	var _name;
+	var _height=0,_weight=0;
+	var setName = function(name){this._name=name;}
+	var getName = function(){return this._name;}
+	var setHeight = function(height){this._height=height;}
+	var getHeight = function(){return this._height;}
+	var setWeight = function(weight){this._weight=weight;}
+	var getWeight = function(){return this._weight;}
+	return{
+		setName : setName,
+		getName : getName,
+		setHeight : setHeight,
+		getHeight : getHeight,
+		setWeight : setWeight,
+		getWeight : getWeight,
+		init : function(){
+			document.querySelector('#bt_kaup_calc').addEventListener('click',this.calc,false);
+		},
+		calc : function(){
+			setName(document.querySelector('#name').value);
+			setHeight(Number(document.querySelector('#height').value));
+			setWeight(Number(document.querySelector('#weight').value));
+			var result = '';
+			var kaup = getWeight() / (getHeight() / 100) / (getHeight() / 100);
+			if (kaup < 18.5) {
+				result = "저체중";
+			} else if (kaup <= 22.9 && kaup >= 18.5) {
+				result = "정상";
+			} else if (kaup <= 24.9 && kaup >= 23.0) {
+				result = "위험체중";
+			} else if (kaup <= 29.9 && kaup >= 25.0) {
+				result = "비만1단계";
+			} else if (kaup <= 40 && kaup >= 30.0) {
+				result = "비만2단계";
+			} else if (kaup > 40) {
+				result = "비만3단계";
+			}
+			document.querySelector('#result').innerHTML=getName()+' 의 카우푸결과 '+ result;
+			/*return name+" 은 BMI 지수는 "+ Double.parseDouble(String.format("%.2f", bmigisu)) +" 이고 "+kaupu+" 이다";*/
+		}
+	};
+})();
+var member = (function(){
+	var _name,_gender;
+	var _age;
+	var setName = function(name){this._name=name;}
+	var getName = function(){return this._name;}
+	var setAge = function(age){this._age=age;}
+	var getAge = function(){return this._age;}
+	var setGender = function(gender){this._gender=gender;}
+	var getGender = function(){return this._gender;}
+	return {
+		setName : setName,
+		getName : getName,
+		setAge : setAge,
+		getAge : getAge,
+		setGender : setGender,
+		getGender : getGender,
+		spec : function(){
+			setName(document.querySelector('#name').value);			
+			var curyear = Number(new Date().getFullYear());
+			var gendergubun = Number(document.querySelector('#ssn').value.substring(7,8));
+			var year = Number(document.querySelector('#ssn').value.substring(0,2));
+			switch (gendergubun) {
+			case 1:case 5:
+				setGender("남");
+				year += 1900;
+				break;
+			case 3:case 7:
+				setGender("남");
+				year += 2000;
+				break;		
+			case 2:case 6:
+				setGender("여");
+				year += 1900;
+				break;
+			case 4:case 8:
+				setGender("여");
+				year += 2000;
+				break;
+			default:
+				break;
+			}
+			setAge(curyear - year + 1);
+			document.querySelector('#result_name').innerHTML=getName();
+			document.querySelector('#result_age').innerHTML=getAge();
+			console.log("남/여구분2 : "+getGender());
+			document.querySelector('#result_gender').innerHTML=getGender();
+		}
+	};
+})();
+
