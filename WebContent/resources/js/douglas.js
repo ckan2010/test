@@ -1,3 +1,21 @@
+var util = (function(){
+	var _page,_directory;
+	var context = sessionStorage.getItem("context");
+	var setPage = function(page){this._page=page;};
+	var getPage = function(){return this._page};
+	var setDirectory = function(directory){this._directory=directory;};
+	var getDirectory = function(){this._directory;};
+	return{
+		move : function(directory,page){
+			setDiretory(directory);
+			setPage(page);
+			location.href=sessionStorage.getItem("context")+'/'+getDirectory()+'.do?page='+getPage();
+		},
+		isNumber : function(value){
+			return typeof value === 'number' && isFinite(value);
+		}
+	}
+})();
 var move = function(context,page){
 	location.href=context+'/douglas.do?page='+page;
 }
@@ -35,14 +53,28 @@ var account = (function(){
 			setMoney(0);
 		},
 		deposit : function(){
-			var input_money = Number(document.querySelector('#money').value);
-			var rest_money = getMoney();
-			console.log('인풋 머니 타입 체크 : '+(typeof input_money === 'number'));
-			console.log('잔액 차입 체크 : '+(typeof rest_money === 'number'))
-			console.log("입금액 : "+input_money);
-			console.log("잔액 : "+rest_money);
-			setMoney(input_money + rest_money);
-			document.querySelector('#rest_money').innerHTML=getMoney();
+			var r_acc = document.querySelector('#result_account').innerText;
+			console.log('계좌번호 : '+r_acc);
+			switch (typeof r_acc) {
+			case 'number': console.log('this is number type ');break;
+			case 'string': console.log('this is string type ');break;
+			case 'undefined': console.log('this is undefined type ');break;
+			default : console.log('type check fail');break;
+			}
+			if (r_acc == '') {
+				// r_acc == null
+				// r_acc === undefined
+				alert('먼저 통장이 개설되어야 합니다.');
+			} else {
+				var input_money = Number(document.querySelector('#money').value);
+				var rest_money = getMoney();
+				console.log('인풋 머니 타입 체크 : '+(typeof input_money === 'number'));
+				console.log('잔액 차입 체크 : '+(typeof rest_money === 'number'))
+				console.log("입금액 : "+input_money);
+				console.log("잔액 : "+rest_money);
+				setMoney(input_money + rest_money);
+				document.querySelector('#rest_money').innerHTML=getMoney();
+			}
 		},
 		withdrawal : function(){
 			var input_money = Number(document.querySelector('#money').value);
@@ -139,7 +171,6 @@ var member = (function(){
 			setAge(curyear - year + 1);
 			document.querySelector('#result_name').innerHTML=getName();
 			document.querySelector('#result_age').innerHTML=getAge();
-			console.log("남/여구분2 : "+getGender());
 			document.querySelector('#result_gender').innerHTML=getGender();
 		}
 	};
